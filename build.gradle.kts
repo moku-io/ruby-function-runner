@@ -14,10 +14,13 @@ repositories {
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-    version.set("2023.2.6")
-    type.set("IC") // Target IDE Platform
+    version.set("2024.1.3")
+    type.set("IU") // Target IDE Platform
 
-    plugins.set(listOf(/* Plugin Dependencies */))
+    // Require the targetIDE plugin or library. Use the stable version
+    // compatible with intellij.version and intellij.type specified above:
+    // 241.17890.1
+    plugins.set(listOf("org.jetbrains.plugins.ruby:241.17890.1", "org.jetbrains.plugins.terminal:241.17890.24"))
 }
 
 tasks {
@@ -44,4 +47,11 @@ tasks {
     publishPlugin {
         token.set(System.getenv("PUBLISH_TOKEN"))
     }
+
+    runIde {
+        // Absolute path to the installed targetIDE to use as IDE Development
+        // Instance (the "Contents" directory is macOS specific):
+        ideDir.set(file("/Users/nicolabba/Applications/RubyMine.app/Contents"))
+    }
+
 }
