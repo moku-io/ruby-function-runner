@@ -1,49 +1,51 @@
 package io.moku.railsnotebooks
 
-import com.google.common.escape.Escaper
-import com.google.common.escape.Escapers
+import com.intellij.execution.ProgramRunnerUtil
+import com.intellij.execution.RunManager
+import com.intellij.execution.executors.DefaultDebugExecutor
+import com.intellij.execution.executors.DefaultRunExecutor
+import com.intellij.execution.impl.RunConfigurationLevel
+import com.intellij.execution.impl.RunManagerImpl
+import com.intellij.execution.impl.RunnerAndConfigurationSettingsImpl
+import com.intellij.icons.ExpUiIcons.Run
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.project.Project
-import com.intellij.terminal.ui.TerminalWidget
-import org.jetbrains.plugins.ruby.rails.model.RailsApp
-import org.jetbrains.plugins.terminal.TerminalToolWindowManager
 
-class RunRootFunctionAction(val function: RootFunction): AnAction() {
-    val SHELL_ESCAPE: Escaper
-
-    init {
-        val builder = Escapers.builder()
-        builder.addEscape('\"', "\\\"")
-        SHELL_ESCAPE = builder.build()
+private fun RootFunction.configurationName(debug: Boolean) =
+    if (debug) {
+        "Debug $name"
+    } else {
+        "Run $name"
     }
 
-    private fun getTerminal(project: Project): TerminalWidget {
-        val manager = TerminalToolWindowManager.getInstance(project)
-        return manager.terminalWidgets.firstOrNull {
-            it.terminalTitle.defaultTitle == "Rails Notebooks"
-        } ?: manager.createShellWidget(project.basePath, "Rails Notebooks", true, true)
+private fun configurationIcon(debug: Boolean) =
+    if (debug) {
+        Run.Debug
+    } else {
+        Run.Run
     }
 
-    private fun getCommand(): String {
-        val commandBuilder = StringBuilder()
-        if (function.hasRails) {
-            commandBuilder.append("rails r \"")
-        } else {
-            commandBuilder.append("ruby -e \"")
-        }
-        commandBuilder.appendLine(SHELL_ESCAPE.escape(function.fileContent))
-        commandBuilder.append(function.name)
-        commandBuilder.append('"')
-        return commandBuilder.toString()
-    }
-
+class RunRootFunctionAction(private val function: RootFunction, private val debug: Boolean) : AnAction(
+    function.configurationName(debug),
+    null,
+    configurationIcon(debug)
+) {
     override fun actionPerformed(e: AnActionEvent) {
         try {
             val project = getEventProject(e)!!
-            val terminal = getTerminal(project)
-            terminal.requestFocus()
-            terminal.sendCommandToExecute(getCommand())
+            ProgramRunnerUtil.executeConfiguration(
+                RunnerAndConfigurationSettingsImpl(
+                    RunManager.getInstance(project) as RunManagerImpl,
+                    RootFunctionRunConfigurationFactory(function).build(function.configurationName(debug)),
+                    false,
+                    RunConfigurationLevel.TEMPORARY
+                ),
+                if (debug) {
+                    DefaultDebugExecutor()
+                } else {
+                    DefaultRunExecutor()
+                }
+            )
         } catch (e: Exception) {
             print(e)
         }

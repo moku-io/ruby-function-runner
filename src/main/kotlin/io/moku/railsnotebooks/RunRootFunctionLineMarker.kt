@@ -11,7 +11,8 @@ class RunRootFunctionLineMarker : RunLineMarkerContributor() {
             return Info(
                 Run.Run,
                 { _ -> "Run ${function.name}" },
-                RunRootFunctionAction(function)
+                RunRootFunctionAction(function, false),
+                RunRootFunctionAction(function, true)
             )
         } catch (_: RootFunction.NotARootFunctionException) {
         }
