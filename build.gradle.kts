@@ -11,6 +11,11 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    // Plugin signing for marketplace upload
+    implementation("org.jetbrains:marketplace-zip-signer:0.1.24")
+}
+
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
@@ -19,8 +24,8 @@ intellij {
 
     // Require the targetIDE plugin or library. Use the stable version
     // compatible with intellij.version and intellij.type specified above:
-    // 241.17890.1
-    plugins.set(listOf("org.jetbrains.plugins.ruby:241.17890.1", "org.jetbrains.plugins.terminal:241.17890.24"))
+    // Dependent on ruby plugin (RubyMine / IntelliJ ultimate with Ruby plugin)
+    plugins.set(listOf("org.jetbrains.plugins.ruby:241.17890.1"))
 }
 
 tasks {
@@ -39,9 +44,11 @@ tasks {
     }
 
     signPlugin {
-        certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
-        privateKey.set(System.getenv("PRIVATE_KEY"))
-        password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
+//        certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
+        certificateChainFile.set(file("signing/cahain.crt"))
+        privateKeyFile.set(file("signing/private.pem"))
+//        privateKey.set(System.getenv("PRIVATE_KEY"))
+        password.set(file("signing/password.txt").readText())
     }
 
     publishPlugin {
