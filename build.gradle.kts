@@ -39,15 +39,13 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild.set("232")
+        sinceBuild.set("241")
         untilBuild.set("242.*")
     }
 
     signPlugin {
-//        certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
         certificateChainFile.set(file("signing/cahain.crt"))
         privateKeyFile.set(file("signing/private.pem"))
-//        privateKey.set(System.getenv("PRIVATE_KEY"))
         password.set(file("signing/password.txt").readText())
     }
 
@@ -58,7 +56,10 @@ tasks {
     runIde {
         // Absolute path to the installed targetIDE to use as IDE Development
         // Instance (the "Contents" directory is macOS specific):
-        ideDir.set(file("/Users/nicolabba/Applications/RubyMine.app/Contents"))
+        // Es. /Users/$USER_NAME/Applications/RubyMine.app/Contents
+        System.getenv("IDE_PATH")?.let {
+            ideDir.set(file(it))
+        }
     }
 
 }
