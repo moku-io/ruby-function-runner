@@ -20,7 +20,7 @@ private fun RootFunction.configurationName(debug: Boolean) =
         "Debug $name"
     } else {
         "Run $name"
-    }
+    }.replace("_", " ")
 
 private fun configurationIcon(debug: Boolean) =
     if (debug) {
