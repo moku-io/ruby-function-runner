@@ -3,13 +3,14 @@ package io.moku.railsnotebooks.configurations
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.roots.ProjectRootManager
 import io.moku.railsnotebooks.RootFunction
+import io.moku.railsnotebooks.function_parameters.models.ParameterModel
 import org.jetbrains.plugins.ruby.console.config.IrbConsoleType
 import org.jetbrains.plugins.ruby.console.config.IrbRunConfiguration
 import org.jetbrains.plugins.ruby.console.config.IrbRunConfigurationFactory
 import org.jetbrains.plugins.ruby.console.config.IrbRunConfigurationType
 import org.jetbrains.plugins.ruby.rails.model.RailsApp
 
-class RailsConfigurationFactory(private val function: RootFunction) : RunRootFunctionFactory {
+class RailsConfigurationFactory(function: RootFunction, parameters: List<ParameterModel>? = null) : RunRootFunctionFactory(function, parameters) {
     private val railsApp = RailsApp.fromPsiElement(function.file)!!
     private val railsPath = railsApp.staticPaths.binRootURL.replace("file://", "").let { "$it/rails" }
     private val project = function.file.project
@@ -18,13 +19,6 @@ class RailsConfigurationFactory(private val function: RootFunction) : RunRootFun
     init {
         val index = ProjectRootManager.getInstance(project).fileIndex
         module = index.getModuleForFile(function.file.virtualFile)!!
-    }
-
-    private fun getCommand(): String {
-        val commandBuilder = StringBuilder()
-        commandBuilder.appendLine("require \"${function.file.virtualFile.path}\"")
-        commandBuilder.append(function.name)
-        return commandBuilder.toString()
     }
 
     override fun build(name: String): IrbRunConfiguration {

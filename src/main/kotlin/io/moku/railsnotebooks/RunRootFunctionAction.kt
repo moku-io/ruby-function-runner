@@ -11,8 +11,11 @@ import com.intellij.execution.impl.RunnerAndConfigurationSettingsImpl
 import com.intellij.icons.ExpUiIcons.Run
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.project.Project
 import io.moku.railsnotebooks.configurations.RailsConfigurationFactory
 import io.moku.railsnotebooks.configurations.RubyConfigurationFactory
+import io.moku.railsnotebooks.function_parameters.models.ParameterModel
+import io.moku.railsnotebooks.function_parameters.showArgumentsDialog
 import org.jetbrains.plugins.ruby.rails.model.RailsApp
 
 private fun RootFunction.configurationName(debug: Boolean) =
@@ -34,21 +37,21 @@ class RunRootFunctionAction(private val function: RootFunction, private val debu
     null,
     configurationIcon(debug)
 ) {
+    private lateinit var project: Project
 
-    private fun getConfiguration(): RunConfiguration =
+    private fun getConfiguration(argModels: List<ParameterModel>?): RunConfiguration =
         if (RailsApp.fromPsiElement(function.file) != null) {
-            RailsConfigurationFactory(function)
+            RailsConfigurationFactory(function, argModels)
         } else {
-            RubyConfigurationFactory(function)
+            RubyConfigurationFactory(function, argModels)
         }.build(function.configurationName(debug))
 
-    override fun actionPerformed(e: AnActionEvent) {
+    private fun runConfiguration(argModels: List<ParameterModel>? = null) {
         try {
-            val project = getEventProject(e)!!
             ProgramRunnerUtil.executeConfiguration(
                 RunnerAndConfigurationSettingsImpl(
                     RunManager.getInstance(project) as RunManagerImpl,
-                    getConfiguration(),
+                    getConfiguration(argModels),
                     false,
                     RunConfigurationLevel.TEMPORARY
                 ),
@@ -62,4 +65,16 @@ class RunRootFunctionAction(private val function: RootFunction, private val debu
             print(e)
         }
     }
+
+    override fun actionPerformed(e: AnActionEvent) {
+        project = getEventProject(e)!!
+        if (function.arguments.isEmpty()) {
+            runConfiguration()
+        } else {
+            function.showArgumentsDialog()?.let { argModels ->
+                runConfiguration(argModels)
+            }
+        }
+    }
 }
+
