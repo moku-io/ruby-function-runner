@@ -9,6 +9,7 @@ sealed class ParameterTableModel: AbstractTableModel() {
 
     override fun getRowCount(): Int = innerRowCount
     protected fun setRowCount(value: Int) { innerRowCount = value }
+    override fun getColumnClass(columnIndex: Int) = String::class.java
 
     override fun getColumnName(column: Int) = "Value"
 
@@ -17,6 +18,5 @@ sealed class ParameterTableModel: AbstractTableModel() {
     override fun getValueAt(rowIndex: Int, columnIndex: Int): Any = values[rowIndex]
 
     abstract fun toValue(): String
-
 
 }

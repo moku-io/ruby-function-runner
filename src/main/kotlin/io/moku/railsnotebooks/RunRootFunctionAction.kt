@@ -15,7 +15,7 @@ import com.intellij.openapi.project.Project
 import io.moku.railsnotebooks.configurations.RailsConfigurationFactory
 import io.moku.railsnotebooks.configurations.RubyConfigurationFactory
 import io.moku.railsnotebooks.function_parameters.models.ParameterModel
-import io.moku.railsnotebooks.function_parameters.showArgumentsDialog
+import io.moku.railsnotebooks.function_parameters.views.showArgumentsDialog
 import org.jetbrains.plugins.ruby.rails.model.RailsApp
 
 private fun RootFunction.configurationName(debug: Boolean) =

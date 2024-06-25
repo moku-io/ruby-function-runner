@@ -14,7 +14,6 @@ abstract class RunRootFunctionFactory(private val function: RootFunction, privat
         var addComma = false
         parameters?.forEach { parameter ->
             if (addComma) { commandBuilder.append(", ") }
-            if (!parameter.argumentInfo.type.isPositionalOrRest) { commandBuilder.append(parameter.argumentInfo.name + ": ") }
             commandBuilder.append(parameter.currentValue)
             addComma = true
         }

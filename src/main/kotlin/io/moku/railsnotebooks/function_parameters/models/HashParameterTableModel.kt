@@ -45,19 +45,11 @@ class HashParameterTableModel : ParameterTableModel() {
         }
     }
 
-    override fun toValue(): String {
-        val sb = StringBuilder()
-        sb.append("{ ")
-        sb.append(
-            keys.mapIndexedNotNull { index, key ->
-                if (key.isEmpty() || values[index].isEmpty()) {
-                    null
-                } else {
-                    "$key: ${values[index]}"
-                }
-            }.joinToString(", ")
-        )
-        sb.append(" }")
-        return sb.toString()
-    }
+    override fun toValue(): String = keys.mapIndexedNotNull { index, key ->
+        if (key.isEmpty() || values[index].isEmpty()) {
+            null
+        } else {
+            "$key: ${values[index]}"
+        }
+    }.joinToString(", ")
 }
