@@ -13,9 +13,11 @@ abstract class RunRootFunctionFactory(private val function: RootFunction, privat
         commandBuilder.append("${function.name}(")
         var addComma = false
         parameters?.forEach { parameter ->
-            if (addComma) { commandBuilder.append(", ") }
-            commandBuilder.append(parameter.currentValue)
-            addComma = true
+            if (parameter.currentValue.isNotBlank()) {
+                if (addComma) { commandBuilder.append(", ") }
+                commandBuilder.append(parameter.currentValue)
+                addComma = true
+            }
         }
         commandBuilder.append(")")
         return commandBuilder.toString()

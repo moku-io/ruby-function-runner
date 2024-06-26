@@ -68,7 +68,7 @@ class RunRootFunctionAction(private val function: RootFunction, private val debu
 
     override fun actionPerformed(e: AnActionEvent) {
         project = getEventProject(e)!!
-        if (function.arguments.isEmpty()) {
+        if (function.arguments.isNullOrEmpty()) {
             runConfiguration()
         } else {
             function.showArgumentsDialog()?.let { argModels ->

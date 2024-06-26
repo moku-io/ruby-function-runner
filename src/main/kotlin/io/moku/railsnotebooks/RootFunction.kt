@@ -23,8 +23,8 @@ class RootFunction(private val defElement: PsiElement) {
     val name: String
         get() = defElement.siblings().toList().filterIsInstance<RNameImpl>().first().name
 
-    val arguments: List<ArgumentInfo>
-        get() = defElement.siblings().toList().filterIsInstance<RFunctionArgumentListImpl>().first().getArgumentInfos(true)
+    val arguments: List<ArgumentInfo>?
+        get() = defElement.siblings().toList().filterIsInstance<RFunctionArgumentListImpl>().firstOrNull()?.getArgumentInfos(true)
 
     val file: PsiFile = defElement.containingFile
 }

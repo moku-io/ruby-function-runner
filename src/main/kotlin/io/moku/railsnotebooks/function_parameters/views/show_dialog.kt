@@ -6,7 +6,7 @@ import io.moku.railsnotebooks.RootFunction
 import io.moku.railsnotebooks.function_parameters.models.ParameterModel
 
 fun RootFunction.showArgumentsDialog(): List<ParameterModel>? {
-    val models = arguments.map { ParameterModel(it) }
+    val models = arguments.orEmpty().map { ParameterModel(it) }
     val db = DialogBuilder().centerPanel(
         panel {
             render(models, file.project)
