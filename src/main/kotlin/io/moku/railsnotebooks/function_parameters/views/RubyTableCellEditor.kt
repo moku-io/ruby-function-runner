@@ -1,6 +1,9 @@
 package io.moku.railsnotebooks.function_parameters.views
 
-import com.intellij.openapi.observable.util.whenDocumentChanged
+import com.intellij.openapi.Disposable
+import com.intellij.openapi.editor.event.DocumentEvent
+import com.intellij.openapi.editor.event.DocumentListener
+import com.intellij.openapi.observable.util.addDocumentListener
 import com.intellij.openapi.project.Project
 import com.intellij.ui.EditorTextField
 import com.intellij.util.ui.AbstractTableCellEditor
@@ -12,9 +15,9 @@ import javax.swing.AbstractAction
 import javax.swing.JTable
 import javax.swing.KeyStroke
 
-class RubyTableCellEditor(private val project: Project): AbstractTableCellEditor() {
+class RubyTableCellEditor(private val project: Project): AbstractTableCellEditor(), Disposable, DocumentListener {
     private var currentValue: String = ""
-
+    private var currentEditor: EditorTextField? = null
 
     override fun getCellEditorValue(): String {
         return currentValue
@@ -27,21 +30,33 @@ class RubyTableCellEditor(private val project: Project): AbstractTableCellEditor
         row: Int,
         column: Int
     ): Component {
-        val editor = EditorTextField(project, RubyFileType.RUBY)
-        editor.inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "my_key")
-        editor.actionMap.put("my_key", object : AbstractAction() {
+        dispose()
+        currentEditor = EditorTextField(project, RubyFileType.RUBY)
+        currentEditor!!.inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "my_key")
+        currentEditor!!.actionMap.put("my_key", object : AbstractAction() {
             override fun actionPerformed(e: ActionEvent?) {
                 stopCellEditing()
             }
         })
-        editor.setOneLineMode(true)
+        currentEditor!!.setOneLineMode(true)
         (value as? String)?.let {
             currentValue = it
-            editor.text = it
+            currentEditor!!.text = it
         }
-        editor.whenDocumentChanged { event ->
-            currentValue = event.document.text
-        }
-        return editor
+        currentEditor!!.addDocumentListener(this, this)
+        return currentEditor!!
+    }
+
+    override fun documentChanged(event: DocumentEvent) {
+        currentValue = event.document.text
+    }
+
+    override fun dispose() {
+        currentEditor?.removeDocumentListener(this)
+        currentEditor?.inputMap?.remove(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0))
+        currentEditor?.actionMap?.remove("my_key")
+        val disp = Disposable {}
+        currentEditor?.setDisposedWith(disp)
+        disp.dispose()
     }
 }
