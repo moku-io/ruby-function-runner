@@ -1,4 +1,4 @@
-package io.moku.railsnotebooks.function_parameters.models
+package io.moku.rubyfunctionrunner.function_parameters.models
 
 class ArrayParameterTableModel: ParameterTableModel() {
     override fun getColumnCount(): Int = 1

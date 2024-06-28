@@ -1,4 +1,4 @@
-package io.moku.railsnotebooks
+package io.moku.rubyfunctionrunner
 
 import com.intellij.execution.lineMarker.RunLineMarkerContributor
 import com.intellij.icons.ExpUiIcons.Run

@@ -1,10 +1,13 @@
-package io.moku.railsnotebooks.configurations
+package io.moku.rubyfunctionrunner.configurations
 
 import com.intellij.execution.configurations.RunConfiguration
-import io.moku.railsnotebooks.RootFunction
-import io.moku.railsnotebooks.function_parameters.models.ParameterModel
+import io.moku.rubyfunctionrunner.RootFunction
+import io.moku.rubyfunctionrunner.function_parameters.models.ParameterModel
+import io.moku.rubyfunctionrunner.settings.AppSettings
 
 abstract class RunRootFunctionFactory(private val function: RootFunction, private val parameters: List<ParameterModel>? = null) {
+    internal val projectSettings
+        get() = AppSettings.instance.state
     abstract fun build(name: String): RunConfiguration
 
     fun getCommand(): String {

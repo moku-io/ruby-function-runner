@@ -1,4 +1,4 @@
-package io.moku.railsnotebooks
+package io.moku.rubyfunctionrunner
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile

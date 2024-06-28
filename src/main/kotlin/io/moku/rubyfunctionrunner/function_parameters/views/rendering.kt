@@ -1,11 +1,11 @@
-package io.moku.railsnotebooks.function_parameters.views
+package io.moku.rubyfunctionrunner.function_parameters.views
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ValidationInfo
 import com.intellij.openapi.ui.validation.DialogValidation
 import com.intellij.ui.EditorTextField
 import com.intellij.ui.dsl.builder.*
-import io.moku.railsnotebooks.function_parameters.models.ParameterModel
+import io.moku.rubyfunctionrunner.function_parameters.models.ParameterModel
 import org.jetbrains.plugins.ruby.ruby.lang.RubyFileType
 import java.awt.BorderLayout
 import javax.swing.JPanel

@@ -1,18 +1,15 @@
-package io.moku.railsnotebooks.configurations
+package io.moku.rubyfunctionrunner.configurations
 
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.roots.ProjectRootManager
-import io.moku.railsnotebooks.RootFunction
-import io.moku.railsnotebooks.function_parameters.models.ParameterModel
+import io.moku.rubyfunctionrunner.RootFunction
+import io.moku.rubyfunctionrunner.function_parameters.models.ParameterModel
 import org.jetbrains.plugins.ruby.console.config.IrbConsoleType
 import org.jetbrains.plugins.ruby.console.config.IrbRunConfiguration
 import org.jetbrains.plugins.ruby.console.config.IrbRunConfigurationFactory
 import org.jetbrains.plugins.ruby.console.config.IrbRunConfigurationType
-import org.jetbrains.plugins.ruby.rails.model.RailsApp
 
 class RailsConfigurationFactory(function: RootFunction, parameters: List<ParameterModel>? = null) : RunRootFunctionFactory(function, parameters) {
-    private val railsApp = RailsApp.fromPsiElement(function.file)!!
-    private val railsPath = railsApp.staticPaths.binRootURL.replace("file://", "").let { "$it/rails" }
     private val project = function.file.project
     private val module: Module
 
@@ -26,11 +23,19 @@ class RailsConfigurationFactory(function: RootFunction, parameters: List<Paramet
         val settings = factory.createConfigurationSettings(
             module,
             name,
-            railsPath,
+            projectSettings.railsExecutablePath,
             listOf("r", getCommand()),
             IrbConsoleType.RAILS
         )
         val configuration = settings.configuration as IrbRunConfiguration
+        val sdkName = projectSettings.rubySdkName
+        if (sdkName != null) {
+            configuration.alternativeSdkName = sdkName
+            configuration.setShouldUseAlternativeSdk(true)
+        } else{
+            configuration.alternativeSdkName = null
+            configuration.setShouldUseAlternativeSdk(false)
+        }
         configuration.setWorkingDirectory(project.basePath)
         return configuration
     }

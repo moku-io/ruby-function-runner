@@ -1,7 +1,7 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
-    <id>io.moku.rails-notebooks</id>
+    <id>io.moku.rubyfunctionrunner</id>
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
@@ -14,7 +14,7 @@
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-    Allows runnning funcions in a ruby file like a notebook
+    Allows running top-level functions in a ruby file in a rails / ruby console.
   ]]></description>
 
     <!-- Product and plugin compatibility requirements.
@@ -25,6 +25,10 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <runLineMarkerContributor implementationClass="io.moku.railsnotebooks.RunRootFunctionLineMarker" language=""/>
+        <runLineMarkerContributor implementationClass="io.moku.rubyfunctionrunner.RunRootFunctionLineMarker" language=""/>
+        <projectConfigurable parentId="tools" instance="io.moku.rubyfunctionrunner.settings.AppSettingsConfigurable"
+                                 id="io.moku.rubyfunctionrunner.settings.AppSettingsConfigurable"
+                                 displayName="Ruby Runner Settings"/>
+        <applicationService serviceImplementation="io.moku.rubyfunctionrunner.settings.AppSettings"/>
     </extensions>
 </idea-plugin>

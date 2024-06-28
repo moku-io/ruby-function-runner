@@ -1,4 +1,4 @@
-package io.moku.railsnotebooks.function_parameters.models
+package io.moku.rubyfunctionrunner.function_parameters.models
 
 import org.jetbrains.plugins.ruby.ruby.lang.psi.controlStructures.methods.ArgumentInfo
 import org.jetbrains.plugins.ruby.ruby.lang.psi.controlStructures.methods.RArgumentInfoWithDefaultArgs

@@ -1,4 +1,4 @@
-package io.moku.railsnotebooks.function_parameters.views
+package io.moku.rubyfunctionrunner.function_parameters.views
 
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.editor.event.DocumentEvent

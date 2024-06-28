@@ -1,4 +1,4 @@
-package io.moku.railsnotebooks.function_parameters.models
+package io.moku.rubyfunctionrunner.function_parameters.models
 
 import javax.swing.table.AbstractTableModel
 

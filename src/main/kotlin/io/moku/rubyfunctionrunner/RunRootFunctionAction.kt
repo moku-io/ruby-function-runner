@@ -1,4 +1,4 @@
-package io.moku.railsnotebooks
+package io.moku.rubyfunctionrunner
 
 import com.intellij.execution.ProgramRunnerUtil
 import com.intellij.execution.RunManager
@@ -12,10 +12,10 @@ import com.intellij.icons.ExpUiIcons.Run
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.Project
-import io.moku.railsnotebooks.configurations.RailsConfigurationFactory
-import io.moku.railsnotebooks.configurations.RubyConfigurationFactory
-import io.moku.railsnotebooks.function_parameters.models.ParameterModel
-import io.moku.railsnotebooks.function_parameters.views.showArgumentsDialog
+import io.moku.rubyfunctionrunner.configurations.RailsConfigurationFactory
+import io.moku.rubyfunctionrunner.configurations.RubyConfigurationFactory
+import io.moku.rubyfunctionrunner.function_parameters.models.ParameterModel
+import io.moku.rubyfunctionrunner.function_parameters.views.showArgumentsDialog
 import org.jetbrains.plugins.ruby.rails.model.RailsApp
 
 private fun RootFunction.configurationName(debug: Boolean) =

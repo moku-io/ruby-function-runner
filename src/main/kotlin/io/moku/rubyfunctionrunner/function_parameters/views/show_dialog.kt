@@ -1,9 +1,9 @@
-package io.moku.railsnotebooks.function_parameters.views
+package io.moku.rubyfunctionrunner.function_parameters.views
 
 import com.intellij.openapi.ui.DialogBuilder
 import com.intellij.ui.dsl.builder.panel
-import io.moku.railsnotebooks.RootFunction
-import io.moku.railsnotebooks.function_parameters.models.ParameterModel
+import io.moku.rubyfunctionrunner.RootFunction
+import io.moku.rubyfunctionrunner.function_parameters.models.ParameterModel
 
 fun RootFunction.showArgumentsDialog(): List<ParameterModel>? {
     val models = arguments.orEmpty().map { ParameterModel(it) }
