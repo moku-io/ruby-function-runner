@@ -5,4 +5,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "rails-notebooks"
+rootProject.name = "ruby-function-runner"
