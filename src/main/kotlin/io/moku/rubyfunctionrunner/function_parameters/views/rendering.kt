@@ -2,7 +2,6 @@ package io.moku.rubyfunctionrunner.function_parameters.views
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ValidationInfo
-import com.intellij.openapi.ui.validation.DialogValidation
 import com.intellij.ui.EditorTextField
 import com.intellij.ui.JBColor
 import com.intellij.ui.SideBorder
@@ -15,17 +14,13 @@ import javax.swing.JTable
 
 
 fun <T: EditorTextField> Cell<T>.required(): Cell<T> {
-    return validation(
-        DialogValidation.WithParameter { par ->
-            DialogValidation {
-                if (par.text.isBlank()) {
-                    ValidationInfo("This field is required")
-                } else {
-                    null
-                }
-            }
+    return validationOnApply {  element ->
+        if (element.text.isBlank()) {
+            ValidationInfo("This field is required")
+        } else {
+            null
         }
-    )
+    }
 }
 
 fun Panel.render(models: List<ParameterModel>, project: Project) {
