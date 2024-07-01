@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "io.moku"
-version = "241.0.1"
+version = "242.0.1"
 
 repositories {
     mavenCentral()
@@ -19,13 +19,13 @@ dependencies {
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-    version.set("2024.1.4")
+    version.set("LATEST-EAP-SNAPSHOT")
     type.set("IU") // Target IDE Platform
 
     // Require the targetIDE plugin or library. Use the stable version
     // compatible with intellij.version and intellij.type specified above:
     // Dependent on ruby plugin (RubyMine / IntelliJ ultimate with Ruby plugin)
-    plugins.set(listOf("org.jetbrains.plugins.ruby:241.18034.62"))
+    plugins.set(listOf("org.jetbrains.plugins.ruby:242.18071.24"))
 }
 
 tasks {
@@ -39,8 +39,8 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild.set("241")
-        untilBuild.set("241.*")
+        sinceBuild.set("242")
+        untilBuild.set("242.*")
     }
 
     signPlugin {
