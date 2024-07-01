@@ -1,7 +1,7 @@
 package io.moku.rubyfunctionrunner
 
 import com.intellij.execution.lineMarker.RunLineMarkerContributor
-import com.intellij.icons.ExpUiIcons.Run
+import com.intellij.icons.AllIcons
 import com.intellij.psi.PsiElement
 
 class RunRootFunctionLineMarker : RunLineMarkerContributor() {
@@ -9,13 +9,13 @@ class RunRootFunctionLineMarker : RunLineMarkerContributor() {
         try {
             val function = RootFunction(element)
             return Info(
-                Run.Run,
-                { _ -> "Run ${function.name}" },
-                RunRootFunctionAction(function, false),
-                RunRootFunctionAction(function, true)
-            )
-        } catch (_: RootFunction.NotARootFunctionException) {
-        }
+                AllIcons.RunConfigurations.TestState.Run,
+                arrayOf(
+                    RunRootFunctionAction(function, false),
+                    RunRootFunctionAction(function, true)
+                )
+            ) { _ -> "Run ${function.name}" }
+        } catch (_: RootFunction.NotARootFunctionException) { }
         return null
     }
 }
