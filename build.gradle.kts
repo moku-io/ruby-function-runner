@@ -62,4 +62,7 @@ tasks {
         }
     }
 
+    clean<Delete> {
+        delete(layout.buildDirectory)
+    }
 }
