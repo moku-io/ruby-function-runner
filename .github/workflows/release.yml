@@ -24,7 +24,10 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
 
-      - name: Publish to GitHub Packages
+      - name: Publish to JetBrains Marketplace
         run: ./gradlew publishPlugin
         env:
           PUBLISH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
+          CERTIFICATE_CHAIN: ${{ secrets.CERTIFICATE_CHAIN }}
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}

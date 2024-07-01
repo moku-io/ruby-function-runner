@@ -44,9 +44,20 @@ tasks {
     }
 
     signPlugin {
-        certificateChainFile.set(file("signing/cahain.crt"))
-        privateKeyFile.set(file("signing/private.pem"))
-        password.set(file("signing/password.txt").readText())
+        val env = System.getenv()
+        env["CERTIFICATE_CHAIN"]?.let {
+            certificateChain.set(it)
+        } ?: run {
+            certificateChainFile.set(file("signing/chain.crt"))
+        }
+        env["PRIVATE_KEY"]?.let {
+            privateKey.set(it)
+        } ?: run {
+            privateKeyFile.set(file("signing/private.pem"))
+        }
+        password.set(
+            env["SIGNING_PASSWORD"] ?: file("signing/password.txt").readText()
+        )
     }
 
     publishPlugin {
