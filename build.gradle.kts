@@ -8,10 +8,11 @@ plugins {
 
 object Constants {
     const val INTELLIJ_VERSION = "242.19533.56"
+    const val RUBY_PLUGIN_VERSION = "242.19533.56"
 }
 
 group = "io.moku"
-version = "242.0.1"
+version = "242.0.3"
 
 repositories {
     mavenCentral()
@@ -28,7 +29,7 @@ dependencies {
             // replace intellijIdeaUltimate(Constants.intellijVersion) with rubymine(Constants.intellijVersion) for when it will work
             intellijIdeaUltimate(Constants.INTELLIJ_VERSION)
         }
-        plugin("org.jetbrains.plugins.ruby:${Constants.INTELLIJ_VERSION}")
+        plugin("org.jetbrains.plugins.ruby:${Constants.RUBY_PLUGIN_VERSION}")
 
 //        jetbrainsRuntime()
         pluginVerifier()
@@ -63,7 +64,6 @@ intellijPlatform {
 
     publishing {
         token.set(System.getenv("PUBLISH_TOKEN"))
-        hidden = true
     }
 
     verifyPlugin {
