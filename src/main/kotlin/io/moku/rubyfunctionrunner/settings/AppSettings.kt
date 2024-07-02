@@ -25,7 +25,7 @@ internal class AppSettings : PersistentStateComponent<AppSettings.State> {
 
         private val project by lazy { ProjectUtil.getActiveProject() }
         private val railsApp by lazy {
-            project?.modules?.firstNotNullOf {
+            project?.modules?.firstNotNullOfOrNull {
                 RailsApp.fromModule(it)
             }
         }
