@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "io.moku"
-version = "241.0.1"
+version = "241.0.2"
 
 repositories {
     mavenCentral()
