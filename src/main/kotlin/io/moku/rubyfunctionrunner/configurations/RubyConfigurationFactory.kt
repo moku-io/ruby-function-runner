@@ -2,7 +2,7 @@ package io.moku.rubyfunctionrunner.configurations
 
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.roots.ProjectRootManager
-import io.moku.rubyfunctionrunner.RunnableFunction
+import io.moku.rubyfunctionrunner.functions.RunnableFunction
 import io.moku.rubyfunctionrunner.function_arguments.models.ArgumentModel
 import io.moku.rubyfunctionrunner.settings.AppSettings
 import org.jetbrains.plugins.ruby.ruby.run.configuration.RubyRunConfigurationType

@@ -2,8 +2,8 @@ package io.moku.rubyfunctionrunner.configurations
 
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.roots.ProjectRootManager
-import io.moku.rubyfunctionrunner.RunnableFunction
 import io.moku.rubyfunctionrunner.function_arguments.models.ArgumentModel
+import io.moku.rubyfunctionrunner.functions.RunnableFunction
 import org.jetbrains.plugins.ruby.console.config.IrbConsoleType
 import org.jetbrains.plugins.ruby.console.config.IrbRunConfiguration
 import org.jetbrains.plugins.ruby.console.config.IrbRunConfigurationFactory

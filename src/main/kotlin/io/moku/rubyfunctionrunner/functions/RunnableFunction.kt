@@ -1,9 +1,10 @@
-package io.moku.rubyfunctionrunner
+package io.moku.rubyfunctionrunner.functions
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import io.moku.rubyfunctionrunner.function_arguments.models.ArgumentModel
 import org.jetbrains.plugins.ruby.ruby.lang.psi.controlStructures.methods.ArgumentInfo
+import java.lang.reflect.InvocationTargetException
 import kotlin.reflect.full.primaryConstructor
 
 sealed class RunnableFunction {
@@ -17,7 +18,13 @@ sealed class RunnableFunction {
             return RunnableFunction::class.sealedSubclasses.firstNotNullOfOrNull {
                 try {
                     it.primaryConstructor?.call(element)
-                } catch (_: ParseException) { null }
+                } catch (exception: InvocationTargetException) {
+                    if (exception.targetException is ParseException) {
+                        null
+                    } else {
+                        throw exception
+                    }
+                }
             }
         }
     }

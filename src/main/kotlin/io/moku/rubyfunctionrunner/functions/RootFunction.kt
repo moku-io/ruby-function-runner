@@ -1,4 +1,4 @@
-package io.moku.rubyfunctionrunner
+package io.moku.rubyfunctionrunner.functions
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
@@ -10,6 +10,7 @@ import org.jetbrains.plugins.ruby.ruby.lang.psi.RFile
 import org.jetbrains.plugins.ruby.ruby.lang.psi.impl.controlStructures.methods.RFunctionArgumentListImpl
 import org.jetbrains.plugins.ruby.ruby.lang.psi.impl.controlStructures.names.RNameImpl
 
+@Suppress("unused")
 class RootFunction(private val defElement: PsiElement): RunnableFunction() {
     class NotARootFunctionException(defElement: PsiElement): ParseException("$defElement is not a top level RubyTokenTypes.kDEF")
     private val ROOT_FUNCTION_CHECK = { defElement: PsiElement -> defElement.elementType == RubyTokenTypes.kDEF && defElement.parent.parent.parent is RFile }

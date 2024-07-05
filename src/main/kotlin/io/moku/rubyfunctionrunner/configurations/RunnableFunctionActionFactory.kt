@@ -1,7 +1,7 @@
 package io.moku.rubyfunctionrunner.configurations
 
 import com.intellij.execution.configurations.RunConfiguration
-import io.moku.rubyfunctionrunner.RunnableFunction
+import io.moku.rubyfunctionrunner.functions.RunnableFunction
 import io.moku.rubyfunctionrunner.function_arguments.models.ArgumentModel
 import io.moku.rubyfunctionrunner.settings.AppSettings
 

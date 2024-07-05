@@ -16,6 +16,7 @@ import io.moku.rubyfunctionrunner.configurations.RailsConfigurationFactory
 import io.moku.rubyfunctionrunner.configurations.RubyConfigurationFactory
 import io.moku.rubyfunctionrunner.function_arguments.models.ArgumentModel
 import io.moku.rubyfunctionrunner.function_arguments.views.showArgumentsDialog
+import io.moku.rubyfunctionrunner.functions.RunnableFunction
 import org.jetbrains.plugins.ruby.rails.model.RailsApp
 
 private fun RunnableFunction.configurationName(debug: Boolean) =
