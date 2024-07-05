@@ -25,7 +25,7 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <runLineMarkerContributor implementationClass="io.moku.rubyfunctionrunner.RunRootFunctionLineMarker" language=""/>
+        <runLineMarkerContributor implementationClass="io.moku.rubyfunctionrunner.RunnableFunctionLineMarker" language=""/>
         <projectConfigurable parentId="tools" instance="io.moku.rubyfunctionrunner.settings.AppSettingsConfigurable"
                                  id="io.moku.rubyfunctionrunner.settings.AppSettingsConfigurable"
                                  displayName="Ruby Runner Settings"/>
