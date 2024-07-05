@@ -7,6 +7,7 @@ import com.intellij.openapi.project.BaseProjectDirectories.Companion.getBaseDire
 import com.intellij.openapi.projectRoots.ProjectJdkTable
 import com.intellij.openapi.projectRoots.Sdk
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
+import com.intellij.ui.components.JBTextField
 import com.intellij.ui.dsl.builder.AlignX
 import com.intellij.ui.dsl.builder.panel
 import org.jetbrains.plugins.ruby.ruby.sdk.RubySdkUtil
@@ -34,18 +35,25 @@ class AppSettingsComponent {
         set(value) {
             railsScriptPathPicker.text = value ?: ""
         }
+    var printCommand: String
+        get() = printCommandField.text
+        set(value) {
+            printCommandField.text = value
+        }
 
     private fun sdkNameToSdk(name: String): Sdk? {
         val sdk = ProjectJdkTable.getInstance().findJdk(name)
         return if (RubySdkUtil.isSDKValid(sdk)) sdk else null
     }
+
+
+    // Components
     private lateinit var railsScriptPathPicker: TextFieldWithBrowseButton
     private val rubySdkPicker: RubySdkComboBox = RubySdkComboBox(
         { RubySdkUtil.getAllRubySdks() },
         rubySdk, false
-    ).apply {
-
-    }
+    )
+    private lateinit var printCommandField: JBTextField
 
     init {
         panel = panel {
@@ -74,6 +82,14 @@ class AppSettingsComponent {
                     }
                 ).apply {
                     railsScriptPathPicker = this.component
+                }.align(AlignX.FILL)
+            }
+            row {
+                label("Print command:")
+            }
+            row {
+                textField().apply {
+                    printCommandField = component
                 }.align(AlignX.FILL)
             }
             row {

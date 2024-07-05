@@ -77,6 +77,10 @@ class SingletonFunction(private val defElement: PsiElement) : RunnableFunction()
         val commandBuilder = StringBuilder()
 
         commandBuilder.appendLine("require \"${file.virtualFile.path}\" unless defined? $containerName")
+
+        if (printCommand.isNotBlank()) {
+            commandBuilder.append("${printCommand}(")
+        }
         commandBuilder.append("${containerName}.${name.replace("self.", "")}(")
         var addComma = false
         arguments?.forEach { argument ->
@@ -92,6 +96,9 @@ class SingletonFunction(private val defElement: PsiElement) : RunnableFunction()
             }
         }
         commandBuilder.append(")")
+        if (printCommand.isNotBlank()) {
+            commandBuilder.append(")")
+        }
         return commandBuilder.toString()
     }
 }
