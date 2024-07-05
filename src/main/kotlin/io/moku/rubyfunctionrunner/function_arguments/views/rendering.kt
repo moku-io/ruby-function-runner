@@ -1,4 +1,4 @@
-package io.moku.rubyfunctionrunner.function_parameters.views
+package io.moku.rubyfunctionrunner.function_arguments.views
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ValidationInfo
@@ -6,7 +6,7 @@ import com.intellij.ui.EditorTextField
 import com.intellij.ui.JBColor
 import com.intellij.ui.SideBorder
 import com.intellij.ui.dsl.builder.*
-import io.moku.rubyfunctionrunner.function_parameters.models.ParameterModel
+import io.moku.rubyfunctionrunner.function_arguments.models.ArgumentModel
 import org.jetbrains.plugins.ruby.ruby.lang.RubyFileType
 import java.awt.BorderLayout
 import javax.swing.JPanel
@@ -23,7 +23,7 @@ fun <T: EditorTextField> Cell<T>.required(): Cell<T> {
     }
 }
 
-fun Panel.render(models: List<ParameterModel>, project: Project) {
+fun Panel.render(models: List<ArgumentModel>, project: Project) {
     models.forEachIndexed { index, model ->
         row(model.argumentInfo.name + ":") {
             model.tableModel?.let { tableModel ->

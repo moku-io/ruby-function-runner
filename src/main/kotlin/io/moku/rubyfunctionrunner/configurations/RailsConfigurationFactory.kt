@@ -2,20 +2,20 @@ package io.moku.rubyfunctionrunner.configurations
 
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.roots.ProjectRootManager
-import io.moku.rubyfunctionrunner.RootFunction
-import io.moku.rubyfunctionrunner.function_parameters.models.ParameterModel
+import io.moku.rubyfunctionrunner.function_arguments.models.ArgumentModel
+import io.moku.rubyfunctionrunner.functions.RunnableFunction
 import org.jetbrains.plugins.ruby.console.config.IrbConsoleType
 import org.jetbrains.plugins.ruby.console.config.IrbRunConfiguration
 import org.jetbrains.plugins.ruby.console.config.IrbRunConfigurationFactory
 import org.jetbrains.plugins.ruby.console.config.IrbRunConfigurationType
 
-class RailsConfigurationFactory(function: RootFunction, parameters: List<ParameterModel>? = null) : RunRootFunctionFactory(function, parameters) {
-    private val project = function.file.project
+class RailsConfigurationFactory(function: RunnableFunction, arguments: List<ArgumentModel>? = null) : RunnableFunctionActionFactory(function, arguments) {
+    private val project = function.psiFile.project
     private val module: Module
 
     init {
         val index = ProjectRootManager.getInstance(project).fileIndex
-        module = index.getModuleForFile(function.file.virtualFile)!!
+        module = index.getModuleForFile(function.psiFile.virtualFile)!!
     }
 
     override fun build(name: String): IrbRunConfiguration {

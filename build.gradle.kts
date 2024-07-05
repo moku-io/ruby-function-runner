@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "io.moku"
-version = "241.0.2"
+version = "241.0.3"
 
 repositories {
     mavenCentral()
@@ -41,6 +41,13 @@ tasks {
     patchPluginXml {
         sinceBuild.set("241")
         untilBuild.set("241.*")
+
+        changeNotes.set("""
+            - Added possibility to run singleton methods
+            - Now results of run method are printed in the console
+            - The method used for printing the results is configurable in the settings,
+              a blank string can be used if printing the result is not wanted
+        """.trimIndent())
     }
 
     signPlugin {

@@ -39,7 +39,8 @@ internal class AppSettingsConfigurable : Configurable {
         val state: AppSettings.State =
             Objects.requireNonNull(AppSettings.instance.state)
         return mySettingsComponent?.rubySdkName != state.rubySdkName ||
-                mySettingsComponent?.railsPath != state.railsExecutablePath
+                mySettingsComponent?.railsPath != state.railsExecutablePath ||
+                mySettingsComponent?.printCommand != state.printCommand
     }
 
     override fun apply() {
@@ -47,6 +48,7 @@ internal class AppSettingsConfigurable : Configurable {
             Objects.requireNonNull(AppSettings.instance.state)
         state.rubySdkName = mySettingsComponent?.rubySdkName
         state.railsExecutablePath = mySettingsComponent?.railsPath
+        state.printCommand = mySettingsComponent?.printCommand ?: ""
     }
 
     override fun reset() {
@@ -54,12 +56,14 @@ internal class AppSettingsConfigurable : Configurable {
             Objects.requireNonNull(AppSettings.instance.state)
         mySettingsComponent?.rubySdkName = state.rubySdkName
         mySettingsComponent?.railsPath = state.railsExecutablePath
+        mySettingsComponent?.printCommand = state.printCommand
     }
 
     private fun resetToDefault() {
         val state = AppSettings.State()
         mySettingsComponent?.rubySdkName = state.rubySdkName
         mySettingsComponent?.railsPath = state.railsExecutablePath
+        mySettingsComponent?.printCommand = state.printCommand
     }
 
 

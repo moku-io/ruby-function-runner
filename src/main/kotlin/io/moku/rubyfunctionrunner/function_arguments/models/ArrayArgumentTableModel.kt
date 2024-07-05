@@ -1,6 +1,6 @@
-package io.moku.rubyfunctionrunner.function_parameters.models
+package io.moku.rubyfunctionrunner.function_arguments.models
 
-class ArrayParameterTableModel: ParameterTableModel() {
+class ArrayArgumentTableModel: ArgumentTableModel() {
     override fun getColumnCount(): Int = 1
 
     override fun setValueAt(aValue: Any?, rowIndex: Int, columnIndex: Int) {

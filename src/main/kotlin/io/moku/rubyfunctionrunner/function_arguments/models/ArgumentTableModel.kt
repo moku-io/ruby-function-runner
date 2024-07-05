@@ -1,9 +1,9 @@
-package io.moku.rubyfunctionrunner.function_parameters.models
+package io.moku.rubyfunctionrunner.function_arguments.models
 
 import javax.swing.table.AbstractTableModel
 
 
-sealed class ParameterTableModel: AbstractTableModel() {
+sealed class ArgumentTableModel: AbstractTableModel() {
     private var innerRowCount = 1
     protected val values = mutableListOf("")
 
