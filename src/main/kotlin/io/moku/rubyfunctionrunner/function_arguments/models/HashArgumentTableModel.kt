@@ -1,6 +1,6 @@
-package io.moku.rubyfunctionrunner.function_parameters.models
+package io.moku.rubyfunctionrunner.function_arguments.models
 
-class HashParameterTableModel : ParameterTableModel() {
+class HashArgumentTableModel : ArgumentTableModel() {
     private val keys = mutableListOf("")
 
     override fun getColumnCount(): Int = 2

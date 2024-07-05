@@ -22,6 +22,7 @@ internal class AppSettings : PersistentStateComponent<AppSettings.State> {
     internal class State {
         var rubySdkName: String?
         var railsExecutablePath: String?
+        var printCommand: String
 
         private val project by lazy { ProjectUtil.getActiveProject() }
         private val railsApp by lazy {
@@ -33,6 +34,7 @@ internal class AppSettings : PersistentStateComponent<AppSettings.State> {
         init {
             railsExecutablePath = defaultRailsExecutablePath()
             rubySdkName = defaultRubySdkName()
+            printCommand = "puts"
         }
 
         private fun defaultRubySdkName(): String? = runReadAction { project?.let { RubySdkUtil.findAnyRubySdkUsedInProject(it) }?.name }
