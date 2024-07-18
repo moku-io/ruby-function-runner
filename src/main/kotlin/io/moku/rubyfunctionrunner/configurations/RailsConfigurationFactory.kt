@@ -23,12 +23,12 @@ class RailsConfigurationFactory(function: RunnableFunction, arguments: List<Argu
         val settings = factory.createConfigurationSettings(
             module,
             name,
-            projectSettings.railsExecutablePath,
+            projectSettings?.railsExecutablePath,
             listOf("r", getCommand()),
             IrbConsoleType.RAILS
         )
         val configuration = settings.configuration as IrbRunConfiguration
-        val sdkName = projectSettings.rubySdkName
+        val sdkName = projectSettings?.rubySdkName
         if (sdkName != null) {
             configuration.alternativeSdkName = sdkName
             configuration.setShouldUseAlternativeSdk(true)

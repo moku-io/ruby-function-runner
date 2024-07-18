@@ -31,7 +31,7 @@ sealed class RunnableFunction {
     }
 
     protected val printCommand
-        get() = AppSettings.instance.state.printCommand
+        get() = AppSettings.instance?.state?.printCommand
 
     sealed class ParseException(message: String): Exception(message)
 }

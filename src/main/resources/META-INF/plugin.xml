@@ -29,6 +29,5 @@
         <projectConfigurable parentId="tools" instance="io.moku.rubyfunctionrunner.settings.AppSettingsConfigurable"
                                  id="io.moku.rubyfunctionrunner.settings.AppSettingsConfigurable"
                                  displayName="Ruby Runner Settings"/>
-        <applicationService serviceImplementation="io.moku.rubyfunctionrunner.settings.AppSettings"/>
     </extensions>
 </idea-plugin>

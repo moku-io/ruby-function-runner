@@ -2,7 +2,6 @@ package io.moku.rubyfunctionrunner.settings
 
 import com.intellij.openapi.options.Configurable
 import org.jetbrains.annotations.Nls
-import java.util.*
 import javax.swing.JComponent
 
 
@@ -36,24 +35,21 @@ internal class AppSettingsConfigurable : Configurable {
     }
 
     override fun isModified(): Boolean {
-        val state: AppSettings.State =
-            Objects.requireNonNull(AppSettings.instance.state)
+        val state: AppSettings.State = AppSettings.instance?.state ?: AppSettings.State()
         return mySettingsComponent?.rubySdkName != state.rubySdkName ||
                 mySettingsComponent?.railsPath != state.railsExecutablePath ||
                 mySettingsComponent?.printCommand != state.printCommand
     }
 
     override fun apply() {
-        val state: AppSettings.State =
-            Objects.requireNonNull(AppSettings.instance.state)
+        val state: AppSettings.State = AppSettings.instance?.state ?: AppSettings.State()
         state.rubySdkName = mySettingsComponent?.rubySdkName
         state.railsExecutablePath = mySettingsComponent?.railsPath
         state.printCommand = mySettingsComponent?.printCommand ?: ""
     }
 
     override fun reset() {
-        val state: AppSettings.State =
-            Objects.requireNonNull(AppSettings.instance.state)
+        val state: AppSettings.State = AppSettings.instance?.state ?: AppSettings.State()
         mySettingsComponent?.rubySdkName = state.rubySdkName
         mySettingsComponent?.railsPath = state.railsExecutablePath
         mySettingsComponent?.printCommand = state.printCommand
