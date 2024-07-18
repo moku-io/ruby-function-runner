@@ -35,7 +35,7 @@ class RootFunction(private val defElement: PsiElement): RunnableFunction() {
     override fun getCommand(arguments: List<ArgumentModel>?): String {
         val commandBuilder = StringBuilder()
         commandBuilder.appendLine("require \"${file.virtualFile.path}\"")
-        if (printCommand.isNotBlank()) {
+        if (!printCommand.isNullOrBlank()) {
             commandBuilder.append("$printCommand(")
         }
         commandBuilder.append("${name}(")
@@ -51,7 +51,7 @@ class RootFunction(private val defElement: PsiElement): RunnableFunction() {
             }
         }
         commandBuilder.append(")")
-        if (printCommand.isNotBlank()) {
+        if (!printCommand.isNullOrBlank()) {
             commandBuilder.append(")")
         }
         return commandBuilder.toString()

@@ -2,8 +2,8 @@ package io.moku.rubyfunctionrunner.configurations
 
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.roots.ProjectRootManager
-import io.moku.rubyfunctionrunner.functions.RunnableFunction
 import io.moku.rubyfunctionrunner.function_arguments.models.ArgumentModel
+import io.moku.rubyfunctionrunner.functions.RunnableFunction
 import io.moku.rubyfunctionrunner.settings.AppSettings
 import org.jetbrains.plugins.ruby.ruby.run.configuration.RubyRunConfigurationType
 import org.jetbrains.plugins.ruby.ruby.run.configuration.rubyScript.RubyRunConfiguration
@@ -27,7 +27,7 @@ class RubyConfigurationFactory(function: RunnableFunction, arguments: List<Argum
         val template = factory.createTemplateConfiguration(project) as RubyRunConfiguration
         template.setScriptPath(file.path)
         template.setWorkingDirectory(project.basePath)
-        val sdkName = AppSettings.instance.state.rubySdkName
+        val sdkName = AppSettings.instance?.state?.rubySdkName
         if (sdkName != null) {
             template.alternativeSdkName = sdkName
             template.setShouldUseAlternativeSdk(true)

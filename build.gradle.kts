@@ -12,7 +12,7 @@ object Constants {
 }
 
 group = "io.moku"
-version = "242.0.4"
+version = "242.0.6"
 
 repositories {
     mavenCentral()
@@ -45,10 +45,7 @@ intellijPlatform {
         }
 
         changeNotes.set("""
-            - Added possibility to run singleton methods
-            - Now results of run method are printed in the console
-            - The method used for printing the results is configurable in the settings,
-              a blank string can be used if printing the result is not wanted
+            - Plugin settings are now project-dependant
         """.trimIndent())
     }
 
