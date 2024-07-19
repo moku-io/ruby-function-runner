@@ -8,11 +8,11 @@ import io.moku.rubyfunctionrunner.function_arguments.models.ArgumentModel
 import org.jetbrains.plugins.ruby.ruby.lang.lexer.RubyTokenTypes
 import org.jetbrains.plugins.ruby.ruby.lang.psi.controlStructures.classes.RClass
 import org.jetbrains.plugins.ruby.ruby.lang.psi.controlStructures.methods.ArgumentInfo
+import org.jetbrains.plugins.ruby.ruby.lang.psi.controlStructures.methods.RArgumentList
 import org.jetbrains.plugins.ruby.ruby.lang.psi.controlStructures.methods.RMethod
 import org.jetbrains.plugins.ruby.ruby.lang.psi.controlStructures.methods.RSingletonMethod
 import org.jetbrains.plugins.ruby.ruby.lang.psi.controlStructures.modules.RModule
 import org.jetbrains.plugins.ruby.ruby.lang.psi.impl.controlStructures.classes.RObjectClassImpl
-import org.jetbrains.plugins.ruby.ruby.lang.psi.impl.controlStructures.methods.RFunctionArgumentListImpl
 import org.jetbrains.plugins.ruby.ruby.lang.psi.impl.controlStructures.names.RNameImpl
 
 @Suppress("unused")
@@ -53,7 +53,7 @@ class SingletonFunction(private val defElement: PsiElement) : RunnableFunction()
         get() = defElement.siblings().toList().filterIsInstance<RNameImpl>().first().name
 
     override val arguments: List<ArgumentInfo>?
-        get() = defElement.siblings().toList().filterIsInstance<RFunctionArgumentListImpl>().firstOrNull()?.getArgumentInfos(true)
+        get() = defElement.siblings().toList().filterIsInstance<RArgumentList>().firstOrNull()?.getArgumentInfos(true)
 
     private val file: PsiFile = defElement.containingFile
 

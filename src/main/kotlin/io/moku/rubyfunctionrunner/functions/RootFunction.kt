@@ -7,7 +7,7 @@ import com.intellij.psi.util.siblings
 import io.moku.rubyfunctionrunner.function_arguments.models.ArgumentModel
 import org.jetbrains.plugins.ruby.ruby.lang.lexer.RubyTokenTypes
 import org.jetbrains.plugins.ruby.ruby.lang.psi.RFile
-import org.jetbrains.plugins.ruby.ruby.lang.psi.impl.controlStructures.methods.RFunctionArgumentListImpl
+import org.jetbrains.plugins.ruby.ruby.lang.psi.controlStructures.methods.RArgumentList
 import org.jetbrains.plugins.ruby.ruby.lang.psi.impl.controlStructures.names.RNameImpl
 
 @Suppress("unused")
@@ -25,7 +25,7 @@ class RootFunction(private val defElement: PsiElement): RunnableFunction() {
         get() = defElement.siblings().toList().filterIsInstance<RNameImpl>().first().name
 
     override val arguments
-        get() = defElement.siblings().toList().filterIsInstance<RFunctionArgumentListImpl>().firstOrNull()?.getArgumentInfos(true)
+        get() = defElement.siblings().toList().filterIsInstance<RArgumentList>().firstOrNull()?.getArgumentInfos(true)
 
     val file: PsiFile = defElement.containingFile
 
