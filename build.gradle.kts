@@ -12,7 +12,7 @@ object Constants {
 }
 
 group = "io.moku"
-version = "242.0.6"
+version = "242.0.7"
 
 repositories {
     mavenCentral()
@@ -45,7 +45,7 @@ intellijPlatform {
         }
 
         changeNotes.set("""
-            - Plugin settings are now project-dependant
+            - Plugin now recognizes arguments for function without parenthesis
         """.trimIndent())
     }
 
