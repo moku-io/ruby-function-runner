@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "io.moku"
-version = "241.0.4"
+version = "241.0.5"
 
 repositories {
     mavenCentral()
@@ -43,7 +43,7 @@ tasks {
         untilBuild.set("241.*")
 
         changeNotes.set("""
-            - Plugin settings are now project-dependant
+            - Plugin now recognizes arguments for function without parenthesis
         """.trimIndent())
     }
 
