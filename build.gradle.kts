@@ -7,12 +7,12 @@ plugins {
 }
 
 object Constants {
-    const val INTELLIJ_VERSION = "242.19533.56"
-    const val RUBY_PLUGIN_VERSION = "242.19533.56"
+    const val INTELLIJ_VERSION = "2024.2"
+    const val RUBY_PLUGIN_VERSION = "242.20224.419"
 }
 
 group = "io.moku"
-version = "242.0.7"
+version = "242.0.8"
 
 repositories {
     mavenCentral()
@@ -45,7 +45,7 @@ intellijPlatform {
         }
 
         changeNotes.set("""
-            - Plugin now recognizes arguments for function without parenthesis
+            Compatibility update
         """.trimIndent())
     }
 

@@ -38,7 +38,7 @@ internal class AppSettings : PersistentStateComponent<AppSettings.State> {
             printCommand = "puts"
         }
 
-        private fun defaultRubySdkName(): String? = runReadAction { project?.let { RubySdkUtil.findAnyRubySdkUsedInProject(it) }?.name }
+        private fun defaultRubySdkName(): String? = runReadAction { project?.let { RubySdkUtil.findRubySdk(it) }?.name }
 
         private fun defaultRailsExecutablePath(): String? =
             railsApp?.staticPaths?.binRootURL?.replace("file://", "")?.let { "$it/rails" }
