@@ -7,13 +7,12 @@ plugins {
 }
 
 object Constants {
-    const val RUBYMINE_VERSION = "2024.2"
-    const val RUBYMINE_TEST_VERSION = "2024.3"
+    const val INTELLIJ_VERSION = "2024.2"
     const val RUBY_PLUGIN_VERSION = "242.20224.419"
 }
 
 group = "io.moku"
-version = "242.0.9"
+version = "242.0.10"
 
 repositories {
     mavenCentral()
@@ -27,7 +26,7 @@ dependencies {
         System.getenv("IDE_PATH")?.let {
             local(file(it))
         } ?: run {
-            rubymine(Constants.RUBYMINE_TEST_VERSION)
+            rubymine(Constants.INTELLIJ_VERSION)
         }
         plugin("org.jetbrains.plugins.ruby:${Constants.RUBY_PLUGIN_VERSION}")
 
@@ -40,6 +39,10 @@ dependencies {
 
 intellijPlatform {
     pluginConfiguration {
+        ideaVersion {
+            sinceBuild.set("242")
+            untilBuild.set(provider { null })
+        }
 
         changeNotes.set("""
             Compatibility update
@@ -69,8 +72,8 @@ intellijPlatform {
 
     pluginVerification {
         ides {
-            ide(IntelliJPlatformType.RubyMine, Constants.RUBYMINE_VERSION)
-            ide(IntelliJPlatformType.IntellijIdeaUltimate, Constants.RUBYMINE_VERSION)
+            ide(IntelliJPlatformType.RubyMine, Constants.INTELLIJ_VERSION)
+            ide(IntelliJPlatformType.IntellijIdeaUltimate, Constants.INTELLIJ_VERSION)
         }
     }
 
