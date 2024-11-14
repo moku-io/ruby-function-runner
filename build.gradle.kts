@@ -7,12 +7,12 @@ plugins {
 }
 
 object Constants {
-    const val INTELLIJ_VERSION = "2024.2"
+    const val INTELLIJ_VERSION = "2024.3"
     const val RUBY_PLUGIN_VERSION = "242.20224.419"
 }
 
 group = "io.moku"
-version = "242.0.11"
+version = "243.0.1"
 
 repositories {
     mavenCentral()
@@ -40,7 +40,7 @@ dependencies {
 intellijPlatform {
     pluginConfiguration {
         ideaVersion {
-            sinceBuild.set("242")
+            sinceBuild.set("243")
             untilBuild.set(provider { null })
         }
 
