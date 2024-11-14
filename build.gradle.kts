@@ -1,53 +1,52 @@
+import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
+
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "1.9.23"
-    id("org.jetbrains.intellij") version "1.17.3"
+    id("org.jetbrains.intellij.platform") version "2.1.0"
+}
+
+object Constants {
+    const val RUBYMINE_VERSION = "2024.2"
+    const val RUBYMINE_TEST_VERSION = "2024.3"
+    const val RUBY_PLUGIN_VERSION = "242.20224.419"
 }
 
 group = "io.moku"
-version = "241.0.5"
+version = "242.0.9"
 
 repositories {
     mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
 }
 
 dependencies {
-    // Plugin signing for marketplace upload
-    implementation("org.jetbrains:marketplace-zip-signer:0.1.24")
+    intellijPlatform {
+        System.getenv("IDE_PATH")?.let {
+            local(file(it))
+        } ?: run {
+            rubymine(Constants.RUBYMINE_TEST_VERSION)
+        }
+        plugin("org.jetbrains.plugins.ruby:${Constants.RUBY_PLUGIN_VERSION}")
+
+//        jetbrainsRuntime()
+        pluginVerifier()
+        zipSigner()
+        instrumentationTools()
+    }
 }
 
-// Configure Gradle IntelliJ Plugin
-// Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
-intellij {
-    version.set("2024.1.4")
-    type.set("IU") // Target IDE Platform
-
-    // Require the targetIDE plugin or library. Use the stable version
-    // compatible with intellij.version and intellij.type specified above:
-    // Dependent on ruby plugin (RubyMine / IntelliJ ultimate with Ruby plugin)
-    plugins.set(listOf("org.jetbrains.plugins.ruby:241.18034.62"))
-}
-
-tasks {
-    // Set the JVM compatibility versions
-    withType<JavaCompile> {
-        sourceCompatibility = "17"
-        targetCompatibility = "17"
-    }
-    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
-    }
-
-    patchPluginXml {
-        sinceBuild.set("241")
-        untilBuild.set("241.*")
+intellijPlatform {
+    pluginConfiguration {
 
         changeNotes.set("""
-            - Plugin now recognizes arguments for function without parenthesis
+            Compatibility update
         """.trimIndent())
     }
 
-    signPlugin {
+    signing {
         val env = System.getenv()
         env["CERTIFICATE_CHAIN"]?.let {
             certificateChain.set(it)
@@ -64,17 +63,28 @@ tasks {
         )
     }
 
-    publishPlugin {
+    publishing {
         token.set(System.getenv("PUBLISH_TOKEN"))
     }
 
-    runIde {
-        // Absolute path to the installed targetIDE to use as IDE Development
-        // Instance (the "Contents" directory is macOS specific):
-        // Es. /Users/$USER_NAME/Applications/RubyMine.app/Contents
-        System.getenv("IDE_PATH")?.let {
-            ideDir.set(file(it))
+    pluginVerification {
+        ides {
+            ide(IntelliJPlatformType.RubyMine, Constants.RUBYMINE_VERSION)
+            ide(IntelliJPlatformType.IntellijIdeaUltimate, Constants.RUBYMINE_VERSION)
         }
+    }
+
+    autoReload.set(true)
+}
+
+tasks {
+    // Set the JVM compatibility versions
+    withType<JavaCompile> {
+        sourceCompatibility = "21"
+        targetCompatibility = "21"
+    }
+    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        kotlinOptions.jvmTarget = "21"
     }
 
     clean<Delete> {

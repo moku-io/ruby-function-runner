@@ -8,7 +8,7 @@ import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.execution.impl.RunConfigurationLevel
 import com.intellij.execution.impl.RunManagerImpl
 import com.intellij.execution.impl.RunnerAndConfigurationSettingsImpl
-import com.intellij.icons.ExpUiIcons.Run
+import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.Project
@@ -28,9 +28,9 @@ private fun RunnableFunction.configurationName(debug: Boolean) =
 
 private fun configurationIcon(debug: Boolean) =
     if (debug) {
-        Run.Debug
+        AllIcons.Actions.StartDebugger
     } else {
-        Run.Run
+        AllIcons.RunConfigurations.TestState.Run
     }
 
 class RunnableFunctionAction(private val function: RunnableFunction, private val debug: Boolean) : AnAction(
