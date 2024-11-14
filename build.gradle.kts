@@ -3,16 +3,17 @@ import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "1.9.23"
-    id("org.jetbrains.intellij.platform") version "2.0.0-beta8"
+    id("org.jetbrains.intellij.platform") version "2.1.0"
 }
 
 object Constants {
-    const val INTELLIJ_VERSION = "2024.2"
+    const val RUBYMINE_VERSION = "2024.2"
+    const val RUBYMINE_TEST_VERSION = "2024.3"
     const val RUBY_PLUGIN_VERSION = "242.20224.419"
 }
 
 group = "io.moku"
-version = "242.0.8"
+version = "242.0.9"
 
 repositories {
     mavenCentral()
@@ -26,8 +27,7 @@ dependencies {
         System.getenv("IDE_PATH")?.let {
             local(file(it))
         } ?: run {
-            // replace intellijIdeaUltimate(Constants.intellijVersion) with rubymine(Constants.intellijVersion) for when it will work
-            intellijIdeaUltimate(Constants.INTELLIJ_VERSION)
+            rubymine(Constants.RUBYMINE_TEST_VERSION)
         }
         plugin("org.jetbrains.plugins.ruby:${Constants.RUBY_PLUGIN_VERSION}")
 
@@ -40,9 +40,6 @@ dependencies {
 
 intellijPlatform {
     pluginConfiguration {
-        ideaVersion {
-            sinceBuild.set("242")
-        }
 
         changeNotes.set("""
             Compatibility update
@@ -70,10 +67,10 @@ intellijPlatform {
         token.set(System.getenv("PUBLISH_TOKEN"))
     }
 
-    verifyPlugin {
+    pluginVerification {
         ides {
-            ide(IntelliJPlatformType.RubyMine, Constants.INTELLIJ_VERSION)
-            ide(IntelliJPlatformType.IntellijIdeaUltimate, Constants.INTELLIJ_VERSION)
+            ide(IntelliJPlatformType.RubyMine, Constants.RUBYMINE_VERSION)
+            ide(IntelliJPlatformType.IntellijIdeaUltimate, Constants.RUBYMINE_VERSION)
         }
     }
 
