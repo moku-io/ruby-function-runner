@@ -68,7 +68,7 @@ class AppSettingsComponent {
             }
             row {
                 textFieldWithBrowseButton(
-                    fileChooserDescriptor = FileChooserDescriptor(
+                    FileChooserDescriptor(
                         true,
                         false,
                         false,

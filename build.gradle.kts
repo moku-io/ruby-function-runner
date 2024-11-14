@@ -12,7 +12,7 @@ object Constants {
 }
 
 group = "io.moku"
-version = "242.0.10"
+version = "242.0.11"
 
 repositories {
     mavenCentral()
@@ -45,7 +45,7 @@ intellijPlatform {
         }
 
         changeNotes.set("""
-            Compatibility update
+            Fixed a deprecation warning
         """.trimIndent())
     }
 
